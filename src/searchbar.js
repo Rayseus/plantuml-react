@@ -30,31 +30,37 @@ export default class SearchBar extends Component {
             ]
         };
     }
-
-    fetchData() {
+    handleInput = (value) => {
+        this.fetchData(value)
+        console.log('value: ', value)
+    }
+    fetchData(key) {
         try {
-            return axios.get(`https://jsonplaceholder.typicode.com/posts`)
+            const url = `https://jsonplaceholder.typicode.com/posts?id=` + key;
+            console.log('url: ',url)
+            return axios.get(url)
                 .then(res => {
-                    const contents = res.data.slice(0, 5);
-                    this.setState({ data: contents })
-                    console.log(contents)
+                    // const contents = res.data.slice(0, 5);
+                    this.setState({ data: res.data })
+                    console.log(res.data)
                 });
         } catch (e) {
             console.log(e);
         }
     }
 
-    componentDidMount(){
-        this.fetchData()
+    componentWillMount(){
+        
     }
 
     render() {
+        // console.log('value: ', this.state.values);
         return (
             <ReactSearchBox
                 placeholder="Search"
-                value="Doe"
+                onChange={input => {this.handleInput(input)}}
                 data={this.state.data}
-                callback={record => console.log("record: ", record)}
+                
             />
         )
     }

@@ -7,26 +7,26 @@ export default class SearchBar extends Component {
         super(props);
         this.state = {
             data: [
-                {
-                    key: 'a',
-                    value: 'Tata',
-                },
-                {
-                    key: 'b',
-                    value: 'Bob',
-                },
-                {
-                    key: 'c',
-                    value: 'Chuanchuan',
-                },
-                {
-                    key: 'd',
-                    value: 'Dea',
-                },
-                {
-                    key: 'e',
-                    value: 'Eva',
-                },
+                // {
+                //     key: 'a',
+                //     value: 'Tata',
+                // },
+                // {
+                //     key: 'b',
+                //     value: 'Bob',
+                // },
+                // {
+                //     key: 'c',
+                //     value: 'Chuanchuan',
+                // },
+                // {
+                //     key: 'd',
+                //     value: 'Dea',
+                // },
+                // {
+                //     key: 'e',
+                //     value: 'Eva',
+                // },
             ]
         };
     }
@@ -37,7 +37,7 @@ export default class SearchBar extends Component {
     fetchData(key) {
         try {
             const url = `https://jsonplaceholder.typicode.com/posts?id=` + key;
-            console.log('url: ',url)
+            console.log('url: ', url)
             return axios.get(url)
                 .then(res => {
                     // const contents = res.data.slice(0, 5);
@@ -49,19 +49,26 @@ export default class SearchBar extends Component {
         }
     }
 
-    componentWillMount(){
-        
+    componentWillMount() {
+
     }
 
     render() {
         // console.log('value: ', this.state.values);
         return (
-            <ReactSearchBox
-                placeholder="Search"
-                onChange={input => {this.handleInput(input)}}
-                data={this.state.data}
-                
-            />
+            <div>
+                <ReactSearchBox
+                    placeholder="Search"
+                    onChange={input => { this.handleInput(input) }}
+                    data={this.state.data}
+                />
+                {this.state.data.map(datas => <div key={datas.id}>
+                    {/* <li >{datas.id}</li> */}
+                    <a href="http://google.com"><div>{datas.title}</div></a>
+                </div>
+                )}
+            </div>
+
         )
     }
 }
